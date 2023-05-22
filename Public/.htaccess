@@ -1,0 +1,12 @@
+#je demarre le moteur de reecriture
+#RewriteEngine On
+
+#Je reecris l'URL
+#RewriteRule ^([a-zA-Z0-9\-\_\/]*)$ index.php?p=$1
+
+#je m'explique:
+#Le truc si tu le lance avec le foutu serveur de php sa marchera pas. Et Tu remarque dans le navigateur si tu met /annonce/detail,
+#le nagateur recherche des sous dossiers genre /localhost/annonce/detail et donc t'enverra not found
+#alors que si tu active les regles, non seulement l'ecriture sera bien coloré, et quand tu met /annonce/model il res recupere dans $_GET dans
+#un parametre qui s'appel : p qu'on a definit dans notre reglre de reecriture (Je l'ai  tester avec un echo de GET dans mon routeur )
+    #Et je vois bien que ya un clé "p" qui contient tout ce que je reajoute au niveau de l'URL.

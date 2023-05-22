@@ -1,0 +1,85 @@
+Projet de gestion des notes.
+
+Bonjour mon ami,
+Comme c'était convenu, je vous envoie la description du projet.
+Je voudrais avoir une application pour la gestion des notes de mon école BSC (Breukh’S Cool).
+On a trois groupes de niveaux d’enseignement à l'école :
+L'enseignement primaire (du CI au CM2):
+Enseignement secondaire inférieur (de la 6ieme a la 3ieme)
+Enseignement secondaire supérieur (on vient de l’ouvrir cette année, on a que la classe 2nd)
+Pour chaque niveau on peut y avoir plusieurs classes. Par exemple cette année à un nombre conséquent d’inscriptions en CP de telle sorte qu’on a ouvert trois(3) classes de CP (CP A,CP B et CP C) idem pour les classes de CM2 (CM2 A et CM2 B) et 6ième (6e A et 6e B).
+Comme nous somme une école issue d’une Daara, il existe deux profils d'élèves :
+les élèves internes:
+à leur descente, ils retournent à la Daara pour continuer leur étude coranique
+les élèves externes: 
+à leur descente, ils rentrent chez eux
+Dans une même classe on peut y avoir les deux types d'élèves (internes et externes). Les élèves de l’internat ont tous un numéro (Par exemple : Amadou Fall a le numéro 345). Le numéro est attribué automatiquement lors de son inscription. l'élève a un seul et même numéro durant tout le long de son parcours scolaire chez nous. Une fois que l'élève n’est plus chez nous (Par abandon, transfert,...), son numéro est attribué au premier inscrit après sa sortie.
+
+Dans un niveau on a un ensemble de disciplines qui peut changer suivant les années (Par exemple : au CP, l'année passée on y avait la discipline FLU mais cette année ci on l’a enlevé).
+
+Dans une même classe, on peut y avoir des élèves qui ne font pas toutes les matières de la classe. (Par exemple : tous les élèves internes font ARABE alors que c’est pas le cas pour tous les externes). Dans ce cas la discipline ARABE n’est pas présente sur tous les bulletins de notes et que ça ne doit pas affecter la moyenne de ceux qui ne le font pas.
+Je voudrais faire de telle sorte qu' à tout moment on peut enlever une discipline du bulletin de note d’un élève.
+
+Les notes des enseignements secondaires sont toutes pondérées d’un coefficient pour le calcul de la moyenne alors celle des classes élémentaires ne le sont pas. 
+Les classes élémentaires ont deux types de notation: 
+note de ressource: 
+Elle est facultative , sa valeur maximale peut varier d’une classe à une autre mais elle est toujours supérieure ou égale à 10.
+note de composition: 
+Elle est obligatoire, sa valeur maximale peut varier d’une classe à une autre mais elle est toujours supérieure ou égale à 10.
+Les classes secondaires ont deux types de notes avec comme valeur maximale vingt (20) :
+note de devoir
+note d’examen
+
+On peut aussi regrouper certaines disciplines (pas toutes) des classes élémentaires. Exemple :
+FLU, VOC, IDE, ECR, COP et  PE sont toutes dans le groupe “Langue et Communication”. (En passant, j’ai failli oublier de te dire que chaque discipline a un code et une description. Exemple : VOC => Vocabulaire, ECR => Ecriture,...).
+
+Dans notre école, on compte trois (3) semestres pour les enseignements primaires et deux (2) pour ceux du secondaire.
+
+Avec l'application qu’on utilisait, il y avait trop de données inutiles des élèves qui ne sont plus dans l'établissement. Avec cette nouvelle application, je voudrais pouvoir supprimer des élèves au cas où on se trompe dans l’enregistrement. je voudrais aussi pouvoir archiver des élèves comme ça ils ne figurent plus dans les listes. Je dois pouvoir les désactiver à tout moment.
+
+On se trompe souvent au niveau de la saisie des informations des élèves, donc il faut me prévoir la possibilité de revenir et éditer les informations (sauf son numéro pour les élèves internes) d’un élève.
+
+
+Coefficient / Pondérateur :
+Avoir une page ou on peut mettre à jour les coefficients / pondérations (ressource et/ou composition) des disciplines d’une classe d’un coup.
+
+Importation d'étudiants :
+On veut avoir la possibilité d’importer des étudiants d’une classe donnée vers une autre classe.
+Avoir aussi la possibilité d'importer des élèves depuis un fichier excel.
+
+Année scolaire :
+Avoir la possibilité d’ajouter des années scolaires (Exemple : 2021-2022), de pouvoir les éditer, d’activer ou de désactiver une année scolaire en cours.
+
+Gestion des rôles :
+Avoir la possibilité de donner aux utilisateurs des accès à des fonctionnalités spécifiques, mais aussi de pouvoir retirer ces accès.
+
+Réinscription : 
+Pour la réinscription, je voudrais avoir deux possibilités pour le faire :
+A partir de la partie réinscription : 
+Rechercher le numéro de l'élève pour que l’application me propose toutes les classes supérieures ou égales à sa classe actuelle.
+A partir du dossier de l'élève: 
+Cliquer sur un bouton : PASSER EN CLASSE SUPÉRIEURE
+A partir d’une classe :
+Importer un élève d’une autre classe.
+Les interfaces : 
+Interface de connexion
+liste des niveaux de l'année courante
+liste des classes d’un niveau donné
+liste des élèves d’une classe donnée:
+afficher l'effectif de la classe
+afficher la moyenne de la classe
+Pouvoir mettre à jour les notes des eleve ici
+Liste des coefficients et/ou pondérations:
+pourvoir mettre à jour les coefficients ou pondération
+Importation d'élèves d’une classe donnée (Transfert de classe)
+Impression groupée (tous les élèves d’une classe donnée):
+Impression des bulletins de notes
+impression de la liste des élèves
+Détails d’un élève donné:
+afficher les notes de chaque semestre:
+pouvoir mettre à jour les notes ici
+pouvoir éditer les info de l'élève
+pouvoir supprimer l'élève
+pouvoir archiver l'élève
+pouvoir réinscrire l'élève
+pouvoir imprimer le bulletin de l'élève
