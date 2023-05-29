@@ -54,13 +54,11 @@ class Router
 
         return false;
     }
-
     public function execute($action)
     {
         $params = explode('@', $action);
         $controller = new $params[0]();
         $method = $params[1];
-
         isset($this->pathParams[1]) ? $controller->$method($this->pathParams) : $controller->$method();
     }
 }

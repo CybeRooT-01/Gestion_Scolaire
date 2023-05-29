@@ -8,46 +8,76 @@ class ClasseController extends Controller
 {
     public function index()
     {
-        $classeModel = new ClasseModel();
-        $classes = $classeModel->findAll();
-        
-        $this->render('classe/Classes.php', ['classes' => $classes]);
-        if (isset($_POST['nom']) && isset($_POST['niveau']) && isset($_POST['cycle'])) {
-            $nom = $_POST['nom'];
-            $niveau = $_POST['niveau'];
-            $type_cycle = $_POST['cycle'];
-            if ($nom != '' && $niveau != '' && $type_cycle != '') {
-                $classeModel->setNom($nom);
-                $classeModel->setNiveau($niveau);
-                $classeModel->setTypeCycle($type_cycle);
-                $classeModel->create($classeModel);
-                header('Location: /classe');
+        if ((isset($_SESSION['user']))) {
+            $classeModel = new ClasseModel();
+            $classes = $classeModel->classeComplet();
+            $typeCycle = $classeModel->selectType()->fetchAll();
+            $this->render('classe/classes.php', ['classes' => $classes, 'typeCycle' => $typeCycle]);
+            if (!empty($_POST['nom']) && !empty($_POST['niveau']) && !empty($_POST['typeCycle'])) {
+                $classeModel->setNom($_POST['nom']);
+                $classeModel->setNiveau($_POST['niveau']);
+                $classeModel->setIdTypeCyble($_POST['typeCycle']);
+                $classeModel->addClasse();
+                $this->redirect('/classe');
             }
-        }
-        if (isset($_POST['idClasse'])) {
-            $id = (int)$_POST['idClasse'];
-            $classeModel->delete($id);
-            header('Location: /classe');
-        }
-        if (isset($_POST['modify'])) {
-            $id = $_POST['idModify'];
-            $modnom = $_POST['Modnom'];
-            $modniveau = $_POST['Modniveau'];
-            $modtype_cycle = $_POST['Modcycle'];
-            $classeModel->setNom($modnom);
-            $classeModel->setNiveau($modniveau);
-            $classeModel->setTypeCycle($modtype_cycle);
-            $classeModel->update($id, $classeModel);
-            header('Location: /classe');
-        }
-    }
-    public function supp(){
-        $classeModel = new ClasseModel();
-        $classeModel->findAll();
-        if (isset($_POST['idClasse'])) {
-            $id = (int)$_POST['idClasse'];
-            $classeModel->delete($id);
-            header('Location: /classe');
+
+            if (!empty($_POST['idClasse'])) {
+                $classeModel->delete((int)$_POST['idClasse']);
+                $this->redirect('/classe');
+            }
+
+            if (!empty($_POST['modify'])) {
+                $datas = [
+                    'nom' => $_POST['Modnom'],
+                    'niveau' => $_POST['Modniveau'],
+                    'Typecycle' => $_POST['Modcycle']
+                ];
+                $classeModel->hydrate($datas);
+                $classeModel->update($_POST['idModify'], $classeModel);
+                $this->redirect('/classe');
+            }
+        } else {
+            $this->redirect('/connexion');
         }
     }
+    public function getTypeCycle()
+    {
+        if (isset($_SESSION['user'])) {
+
+            $classeModel = new ClasseModel();
+            $typeCycle = $classeModel->classeComplet()->fetchAll();
+            // var_dump($typeCycle);
+            $primaire = [];
+            $college = [];
+            $lycee = [];
+            foreach ($typeCycle as $key => $value) {
+                if ($value->nom_typecycle == 'Enseignement Primaire') {
+                    $primaire[] = $value;
+                } elseif ($value->nom_typecycle == 'Enseignement secondaire inferieur') {
+                    $college[] = $value;
+                } elseif ($value->nom_typecycle == 'Enseignement secondaire superieur') {
+                    $lycee[] = $value;
+                }
+            }
+            $jsonData = json_encode([
+                'primaire' => $primaire,
+                'college' => $college,
+                'lycee' => $lycee
+            ]);
+            header('Content-Type: application/json');
+            echo $jsonData;
+            exit();
+        } else {
+            $this->redirect('/connexion');
+        }
+    }
+    /*
+              [
+                    'statut':
+                    'message'
+                    'datas'
+              ]
+            //faire une requete qui m'evite de faire les if/else
+            // produire l'objet d'ici pour que le js contient aussi des objets, donc j'aurai pas besoin de le faire...
+         */
 }

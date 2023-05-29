@@ -17,4 +17,9 @@ class Controller
         // $content = ob_get_clean();
         require_once __DIR__ . '/../views/layout.php';
     }
+    public function redirect(string $url)
+    {
+        header('Location: ' . $url);
+        exit();
+    }
 }

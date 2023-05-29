@@ -5,14 +5,25 @@ namespace App\models;
 class AnneeModel extends model
 {
     protected $id;
-    protected $debut_annee_scolaire;
-    protected $fin_annee_scolaire;
+    protected $annee_scolaire;
+    protected $status;
 
     public function __construct()
     {
         $this->table = 'annee';
     }
+    public function getActiveYear()
+    {
+        return $this->myQuerry('SELECT annee_scolaire FROM ' . $this->table . ' WHERE status = ?', ['active'])->fetchAll();
+    }
+    public function updateStatut(int $id, string $nouveauStatut)
+    {
+        return $this->myQuerry('UPDATE ' . $this->table . ' SET status = ? WHERE id = ?', [$nouveauStatut, $id]);
+    }
 
+    public function mettreLesAutreInactive(){
+        return $this->myQuerry('UPDATE ' . $this->table . ' SET status = ?', ['inactive']);
+    }
 
     /**
      * Get the value of id
@@ -33,37 +44,37 @@ class AnneeModel extends model
     }
 
     /**
-     * Get the value of debut_annee_scolaire
+     * Get the value of annee_scolaire
      */
-    public function getDebutAnneeScolaire()
+    public function getAnneeScolaire()
     {
-        return $this->debut_annee_scolaire;
+        return $this->annee_scolaire;
     }
 
     /**
-     * Set the value of debut_annee_scolaire
+     * Set the value of annee_scolaire
      */
-    public function setDebutAnneeScolaire($debut_annee_scolaire): self
+    public function setAnneeScolaire($annee_scolaire): self
     {
-        $this->debut_annee_scolaire = $debut_annee_scolaire;
+        $this->annee_scolaire = $annee_scolaire;
 
         return $this;
     }
 
     /**
-     * Get the value of fin_annee_scolaire
+     * Get the value of status
      */
-    public function getFinAnneeScolaire()
+    public function getStatus()
     {
-        return $this->fin_annee_scolaire;
+        return $this->status;
     }
 
     /**
-     * Set the value of fin_annee_scolaire
+     * Set the value of status
      */
-    public function setFinAnneeScolaire($fin_annee_scolaire): self
+    public function setStatus($status): self
     {
-        $this->fin_annee_scolaire = $fin_annee_scolaire;
+        $this->status = $status;
 
         return $this;
     }

@@ -7,15 +7,23 @@ class ClasseModel extends model
     protected $id;
     protected $nom;
     protected $niveau;
-    protected $type_cycle;
+    protected $idTypeCyble;
 
     public function __construct()
     {
         $this->table = 'classe';
     }
+    public function addClasse(){
+        $sql = "INSERT INTO classe (nom, niveau, idTypeCycle) VALUES (?, ?, ?)";
+        return $this->myQuerry($sql, [$this->nom, $this->niveau, $this->idTypeCyble]);
+    }
 
-    
-
+    public function classeComplet(){
+        $sql = "SELECT classe.*, typecycle.nom AS nom_typecycle
+        FROM classe
+        JOIN typecycle ON classe.idTypeCycle = typecycle.id";
+        return $this->myQuerry($sql);
+    }
     /**
      * Get the value of id
      */
@@ -70,20 +78,21 @@ class ClasseModel extends model
         return $this;
     }
 
+
     /**
-     * Get the value of type_cycle
+     * Get the value of idTypeCyble
      */
-    public function getTypeCycle()
+    public function getIdTypeCyble()
     {
-        return $this->type_cycle;
+        return $this->idTypeCyble;
     }
 
     /**
-     * Set the value of type_cycle
+     * Set the value of idTypeCyble
      */
-    public function setTypeCycle($type_cycle): self
+    public function setIdTypeCyble($idTypeCyble): self
     {
-        $this->type_cycle = $type_cycle;
+        $this->idTypeCyble = $idTypeCyble;
 
         return $this;
     }

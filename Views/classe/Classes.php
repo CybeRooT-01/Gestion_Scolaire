@@ -1,4 +1,3 @@
-<?php include_once '../Views/nav.php'; ?>
 <div class="container py-4">
   <h1 class="text-center mb-4">Gestion des classes</h1>
   <div class="card">
@@ -23,7 +22,7 @@
             <tr>
               <td><?= $classe->nom ?></td>
               <td><?= $classe->niveau ?></td>
-              <td><?= $classe->type_cycle ?></td>
+              <td><?= $classe->nom_typecycle ?></td>
               <td>
                 <div class="d-flex justify-content-start">
                   <button class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editModal<?= $classe->id ?>" name="<?= $classe->type_cycle ?>">Modifier</button>
@@ -80,7 +79,7 @@
               </div>
             </div>
     </div>
-    <!-- Modal de confirmation de suppression -->
+    <!-- Modal de confirmation de suppression: -->
     <div class="modal fade" id="deleteModal<?= $classe->id ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<?= $classe->id ?>" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -154,11 +153,11 @@
               <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">Options</label>
               </div>
-              <select class="custom-select" id="inputGroupSelect01" name="cycle">
-                <option selected>Choisir un type de cycle</option>
-                <option value="Enseignement Primaire">Enseignement Primaire</option>
-                <option value="Enseignement Secondaire Inferieur">Enseignement Secondaire Inferieur</option>
-                <option value="Enseignement Secondaire Superieur">Enseignement Secondaire Superieur</option>
+              <select class="custom-select niveau" id="inputGroupSelect01" name="typeCycle">
+              <option selected>Choisir une cycle</option>
+                <?php foreach ($params['typeCycle'] as  $cycle) : ?>
+                  <option value="<?= $cycle->id ?>"><?= $cycle->nom ?></option>
+                <?php endforeach; ?>
               </select>
             </div>
           </div>
@@ -172,7 +171,6 @@
   </div>
 </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

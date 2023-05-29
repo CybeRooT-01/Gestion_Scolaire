@@ -1,28 +1,45 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gestion de Note</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
+<style>
+      .custom-link {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        height: 100px;
+        line-height: 50px;
+        background-color: #f8f9fa;
+        text-align: left;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s;
+        font-size: 2em;
+      }
+
+      .custom-link:hover {
+        background-color: #ddd;
+        text-decoration: none;
+        color: #333;
+      }
+    </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="main">Mon Application</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="eleve">Enregistrer Élève</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="annee">Enregistrer Année</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="classe">Enregistrer Classe</a>
-        </li>
-      </ul>
+  <a class="navbar-brand" href="main">Mon Application</a>
+  <?php foreach ($params['active'] as $annee) : ?>
+                <a class="nav-link d-inline-block mb-2 bg-primary text-white" href="/annee">Année Scolaire: <?= $annee->annee_scolaire ?></a>
+            <?php endforeach; ?>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-12 mb-5">
+      <a href="/main/elementaire" class="custom-link">Elementaire</a>
     </div>
-  </nav>
+    <div class="col-12 mb-5">
+      <a href="/main/moyen" class="custom-link">Moyen</a>
+    </div>
+    <div class="col-12 mb-5">
+      <a href="/main/secondaire" class="custom-link td-none">Secondaire</a>
+    </div>
+  </div>
+</div>

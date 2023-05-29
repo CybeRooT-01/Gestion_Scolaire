@@ -10,52 +10,89 @@ class EleveModel extends model
     protected $niveau;
     protected $classe;
     protected $matricule;
-    protected $annee_id;
-    protected $classe_id;
+    protected $dateNaissance;
+    protected $lieuNaissance;
+    protected $sexe;
 
     public function __construct()
     {
         $this->table = 'eleves';
     }
 
-    public function EleveComplet()
+    // public function EleveComplet()
+    // {
+    //     $sql = "SELECT eleves.id, eleves.nom, eleves.prenom, eleves.matricule, classe.nom as classe, classe.niveau, annee.annee_scolaire
+    //     FROM eleves
+    //     INNER JOIN classe ON eleves.classe_id = classe.id
+    //     INNER JOIN annee ON eleves.annee_id = annee.id";
+    //     return $this->myQuerry($sql);
+    // }
+
+    /**
+     * Get the value of lieuNaissance
+     */
+    public function getLieuNaissance()
     {
-        $sql = "SELECT eleves.id, eleves.nom, eleves.prenom, eleves.matricule, classe.nom as classe, classe.niveau, annee.debut_annee_scolaire, annee.fin_annee_scolaire
-        FROM eleves
-        INNER JOIN classe ON eleves.classe_id = classe.id
-        INNER JOIN annee ON eleves.annee_id = annee.id;";
-        return $this->myQuerry($sql);
+        return $this->lieuNaissance;
     }
-    
-    public function getClasseId()
+
+    /**
+     * Set the value of lieuNaissance
+     */
+    public function setLieuNaissance($lieuNaissance): self
     {
-        return $this->classe_id;
-    }
-    public function setClasseId($classe_id): self
-    {
-        $this->classe_id = $classe_id;
+        $this->lieuNaissance = $lieuNaissance;
 
         return $this;
     }
 
-    public function getAnneeId()
+    /**
+     * Get the value of sexe
+     */
+    public function getSexe()
     {
-        return $this->annee_id;
+        return $this->sexe;
     }
-    
-    public function setAnneeId($annee_id): self
+
+    /**
+     * Set the value of sexe
+     */
+    public function setSexe($sexe): self
     {
-        $this->annee_id = $annee_id;
+        $this->sexe = $sexe;
 
         return $this;
     }
 
+    /**
+     * Get the value of dateNaissance
+     */
+    public function getDateNaissance()
+    {
+        return $this->dateNaissance;
+    }
+
+    /**
+     * Set the value of dateNaissance
+     */
+    public function setDateNaissance($dateNaissance): self
+    {
+        $this->dateNaissance = $dateNaissance;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of matricule
+     */
     public function getMatricule()
     {
         return $this->matricule;
     }
 
-
+    /**
+     * Set the value of matricule
+     */
     public function setMatricule($matricule): self
     {
         $this->matricule = $matricule;
@@ -63,13 +100,17 @@ class EleveModel extends model
         return $this;
     }
 
-    
+    /**
+     * Get the value of classe
+     */
     public function getClasse()
     {
         return $this->classe;
     }
 
-    
+    /**
+     * Set the value of classe
+     */
     public function setClasse($classe): self
     {
         $this->classe = $classe;
@@ -77,13 +118,17 @@ class EleveModel extends model
         return $this;
     }
 
-    
+    /**
+     * Get the value of niveau
+     */
     public function getNiveau()
     {
         return $this->niveau;
     }
 
-    
+    /**
+     * Set the value of niveau
+     */
     public function setNiveau($niveau): self
     {
         $this->niveau = $niveau;
@@ -91,35 +136,53 @@ class EleveModel extends model
         return $this;
     }
 
-    
+    /**
+     * Get the value of prenom
+     */
     public function getPrenom()
     {
         return $this->prenom;
     }
 
-    
+    /**
+     * Set the value of prenom
+     */
     public function setPrenom($prenom): self
     {
         $this->prenom = $prenom;
 
         return $this;
     }
+
+    /**
+     * Get the value of nom
+     */
     public function getNom()
     {
         return $this->nom;
     }
+
+    /**
+     * Set the value of nom
+     */
     public function setNom($nom): self
     {
         $this->nom = $nom;
 
         return $this;
     }
-    
+
+    /**
+     * Get the value of id
+     */
     public function getId()
     {
         return $this->id;
     }
-    
+
+    /**
+     * Set the value of id
+     */
     public function setId($id): self
     {
         $this->id = $id;

@@ -15,6 +15,11 @@ class model extends db
     public function delete(int $id){
         return $this->myQuerry('DELETE FROM ' . $this->table . ' WHERE id = ?', [$id]);
     }
+    // =====================recuperation d'une type de cycle==============
+    public function selectType(){
+        $sql = "SELECT * FROM typecycle";
+        return $this->myQuerry($sql);
+    }
     // =====================La Partie update==============
     public function update(int $id, model $model){
         $champs = [];
@@ -35,7 +40,7 @@ class model extends db
         $inter = [];
         $valeurs = [];
         foreach ($model as $champ => $valeur) {
-            if ($champ != 'db' && $champ != 'table' && $valeur != null) {
+            if ($champ != 'db' && $champ != 'table' && $valeur !== null) {
                 $champs[] = $champ;
                 $inter[] = "?";
                 $valeurs[] = $valeur;
@@ -47,7 +52,7 @@ class model extends db
     }
 
     //insertion par hydratation
-    public function hydrate(array $donnes){
+    public function hydrate($donnes){
         foreach ($donnes as $key => $value) {
             $setter = 'set'.ucfirst($key); // met le premier caractere en majuscule (avantage de la convention de nommage des setters)
             if (method_exists($this, $setter)){ //verifie dans notre objet si on a une methode qui sappel setter

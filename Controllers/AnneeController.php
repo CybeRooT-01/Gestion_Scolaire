@@ -6,44 +6,63 @@ use App\models\AnneeModel;
 
 class AnneeController extends Controller
 {
+    protected $anneeModel;
+    public const ANNEE = '/annee';
+
+    public function __construct()
+    {
+        $this->anneeModel = new AnneeModel();
+    }
+
     public function index()
     {
-        $anneeModel = new AnneeModel();
-        $annees = $anneeModel->findAll();
+        if (isset($_SESSION['user'])) {
+            $annees = $this->anneeModel->findAll();
         $this->render('annee/Annees.php', compact('annees'));
-        if(isset( $_POST['debut_annee']) && isset($_POST['fin_annee'])){
-            $debut =(int)$_POST['debut_annee'];
-            $fin =(int) $_POST['fin_annee'];
-            if($debut >= 2000 && $fin >= 2000 && $fin - $debut == 1){
-                $anneeModel->setDebutAnneeScolaire($debut);
-                $anneeModel->setFinAnneeScolaire($fin);
-                $anneeModel->create($anneeModel);
-                header('Location: /annee');
-                exit();
-            }else{
-                echo "Annees non concordant";
+        } else {
+            $this->redirect('/connexion');
+        }
+    }
+
+    public function validateYear($annee)
+    {
+        $debut = (int) substr($annee, 0, 4);
+        $fin = (int) substr($annee, 5, 9);
+        return strlen($annee) == 9 && $annee[4] == '-' && $fin - $debut == 1 ? true : false;
+    }
+
+    public function createYear()
+    {
+        $errorMessage = '';
+        if (isset($_POST['annee'])) {
+            $annee = $_POST['annee'];
+            if ($this->validateYear($annee)) {
+                $this->anneeModel->setAnneeScolaire($annee);
+                $this->anneeModel->create($this->anneeModel);
+                $this->redirect(self::ANNEE);
+            } else {
+                $errorMessage = 'Veuillez entrer une année valide';
             }
         }
-        if(isset( $_POST['updtateDepart']) && isset($_POST['updatefin']) && isset($_POST['idYear'])){
-            
-            $debut =(int)$_POST['updtateDepart'];
-            $fin =(int) $_POST['updatefin'];
-            $id = (int)$_POST['idYear'];
-            if($debut >= 2000 && $fin >= 2000 && $fin - $debut == 1){
-                $anneeModel->setDebutAnneeScolaire($debut);
-                $anneeModel->setFinAnneeScolaire($fin);
-                $anneeModel->update($id, $anneeModel);
-                header('Location: /annee');
-                exit();
-            }else{
-                echo "Annees non concordant";
-            }
+    }
+
+    public function deleteYear()
+    {
+        if (isset($_POST['deleteYear'])) {
+            $id = (int) $_POST['deleteYear'];
+            $this->anneeModel->delete($id);
         }
-        if(isset($_POST['deleteYear'])){
-            $id = (int)$_POST['deleteYear'];
-            $anneeModel->delete($id);
-            header('Location: /annee');
-            exit();
+        $this->redirect(self::ANNEE);
+    }
+
+    public function changeStatus()
+    {
+        if (isset($_POST['active'])) {
+            $id = (int) $_POST['statid'];
+            $nouveauStatut = ($_POST['active'] == 'active') ? 'inactive' : 'active';
+            $this->anneeModel->mettreLesAutreInactive();
+            $this->anneeModel->updateStatut($id, $nouveauStatut);
+            $this->redirect(self::ANNEE);
         }
     }
 }
