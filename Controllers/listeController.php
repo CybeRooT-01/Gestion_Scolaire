@@ -15,12 +15,15 @@ class listeController extends Controller
     }
     public function index()
     {
-        $nom = $_SERVER['REQUEST_URI'];
-        $classes = explode('=', $nom);
-        $classe =  $classes[1];
-        $model = new listeModel();
-        $eleves = $model->getEleveByClasse($classe)->fetchAll();
-
-        $this->render('cycles/listeEleve.php', ['eleve' => $eleves, 'active' => $this->active]);
+        if(isset($_SESSION['user'])){
+            $nom = $_SERVER['REQUEST_URI'];
+            $classes = explode('=', $nom);
+            $classe =  $classes[1];
+            $model = new listeModel();
+            $eleves = $model->getEleveByClasse($classe)->fetchAll();
+            $this->render('cycles/listeEleve.php', ['eleve' => $eleves, 'active' => $this->active]);
+        }else{
+            $this->redirect('/connexion');
+        }
     }
 }

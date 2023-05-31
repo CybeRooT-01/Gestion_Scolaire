@@ -18,7 +18,7 @@ class AnneeController extends Controller
     {
         if (isset($_SESSION['user'])) {
             $annees = $this->anneeModel->findAll();
-        $this->render('annee/Annees.php', compact('annees'));
+            $this->render('annee/Annees.php', compact('annees'));
         } else {
             $this->redirect('/connexion');
         }
