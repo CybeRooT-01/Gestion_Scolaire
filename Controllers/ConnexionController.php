@@ -21,13 +21,12 @@ class ConnexionController extends Controller
             $user = $this->model->hydrate($userTab);
             if(password_verify($_POST['password'], $user->getPass())){
                 $user->setSession();
-                header('Location: /main');
+                header('Location: /niveau');
             }else{
                 $_SESSION['erreur'] = "L'addresse email et/ou le mot de passe est incorrect";
                 $this->redirect('/connexion');
             }
         }
-
         $this->render('Connexion.php');
     }
     public function inscription(){

@@ -42,8 +42,6 @@ class ClasseController extends Controller
     }
     public function getTypeCycle()
     {
-        if (isset($_SESSION['user'])) {
-
             $classeModel = new ClasseModel();
             $typeCycle = $classeModel->classeComplet()->fetchAll();
             // var_dump($typeCycle);
@@ -67,9 +65,7 @@ class ClasseController extends Controller
             header('Content-Type: application/json');
             echo $jsonData;
             exit();
-        } else {
-            $this->redirect('/connexion');
-        }
+
     }
     /*
               [

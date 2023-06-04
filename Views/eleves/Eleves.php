@@ -242,7 +242,7 @@
     const listeNiveau = document.querySelector('.niveau');
     let niveau = listeNiveau.value;
     console.log(niveau);
-    fetch('http://localhost:8000/getTypesClasses')
+    fetch('http://localhost:10000/getTypesClasses')
       .then(response => {
         if (!response.ok) {
           throw new Error('Erreur lors de la récupération des données : ' + response.status);

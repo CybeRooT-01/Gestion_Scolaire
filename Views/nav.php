@@ -33,13 +33,13 @@
 <div class="container">
   <div class="row">
     <div class="col-12 mb-5">
-      <a href="/main/elementaire" class="custom-link">Elementaire</a>
+      <a href="/niveau/elementaire" class="custom-link">Elementaire</a>
     </div>
     <div class="col-12 mb-5">
-      <a href="/main/moyen" class="custom-link">Moyen</a>
+      <a href="/niveau/moyen" class="custom-link">Moyen</a>
     </div>
     <div class="col-12 mb-5">
-      <a href="/main/secondaire" class="custom-link td-none">Secondaire</a>
+      <a href="/niveau/secondaire" class="custom-link td-none">Secondaire</a>
     </div>
   </div>
 </div>
