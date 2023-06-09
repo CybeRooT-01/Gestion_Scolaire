@@ -6,6 +6,7 @@ class UsersModel extends model
     protected $id;
     protected $pass;
     protected $email;
+    protected $nom;
     public function __construct()
     {
         $this->table = 'users';
@@ -13,10 +14,12 @@ class UsersModel extends model
     public function findOnzByEmail(string $email){
         return $this->myQuerry("SELECT *  FROM {$this->table} WHERE email = ?", [$email])->fetch();
     }
+    
     public function setSession(){
         $_SESSION['user'] = [
             'id' => $this->id,
-            'email' => $this->email
+            'email' => $this->email,
+            'nom'=> explode('@', $this->email)[0],
         ];
     }
 

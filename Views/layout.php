@@ -16,6 +16,7 @@
     <header style="position: absolute; top:0; right:0">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <?php if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])): ?>
+            <p class="btn btn-primary mr-4 mt-3" ><?= $_SESSION['user']['nom']?></p>
             <a class="navbar-brand" href="/niveau">Accueil</a>
             <a class="navbar-brand" href="/logout">Deconnexion</a>
             <?php endif; ?>

@@ -263,7 +263,6 @@
           "Enseignement secondaire superieur": data.lycee,
         };
         tableauClasses[niveau]?.forEach(classe => {
-          console.log(classe);
           listeClasse.innerHTML += `<option value="${classe.nom}">${classe.nom}</option>`;
         });
       })

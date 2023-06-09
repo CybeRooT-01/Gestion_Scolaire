@@ -12,7 +12,7 @@
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
       <h4>Bienvenu sur la page de connexion</h4>
-        <form action=""  method="POST">
+        <form  method="POST">
           <div class="form-outline mb-4">
           <label class="form-label" for="form3Example3">Address Email</label>
             <input type="email" id="form3Example3" class="form-control form-control-lg"
