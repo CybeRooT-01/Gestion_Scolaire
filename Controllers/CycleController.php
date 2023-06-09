@@ -17,7 +17,7 @@ class CycleController extends Controller{
     }
 
     public function elementaire(){
-        $allPrimaires = $this->model->getClasseByCycle('Enseignement primaire');
+        $allPrimaires = $this->model->getClasseByCycle('Enseignement primaire')->fetchAll();
         $this->render('cycles/elementaire.php', ['cycle' => $allPrimaires, 'active' => $this->active]);
     }
     public function secondaireInferieur(){

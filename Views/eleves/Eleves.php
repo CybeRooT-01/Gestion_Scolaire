@@ -19,6 +19,7 @@
             <th>Lieu de naissance</th>
             <th>Matricule</th>
             <th>sexe</th>
+            <th>Année</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -33,6 +34,7 @@
               <td> <?= $eleve->lieuNaissance ?></td>
               <td><?= $eleve->matricule ?></td>
               <td><?= $eleve->sexe ?></td>
+              <td><?= $eleve->annee ?></td>
               <td>
                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal<?= $eleve->id ?>">Modifier</button>
                 <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal<?= $eleve->id ?>">Supprimer</button>
@@ -160,6 +162,10 @@
               <label for="niveau">matricule</label>
               <input type="text" class="form-control" id="niveau" name="matriculeEleve" required>
               <span class="text-danger d-none ">matricule invalide</span>
+            </div>
+            <div class="form-group">
+              <label for="niveau">annee</label>
+              <input type="text" class="form-control" id="niveau" name="annee" required>
             </div>
             <span>Sexe :</span>
             <div class="form-check">

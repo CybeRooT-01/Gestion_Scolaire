@@ -12,12 +12,15 @@
         </div>
     </div>
 </div>
-
     <ul class="list-group">
         <?php foreach ($params['cycle'] as $primaires) : ?>
             <li class="list-group-item bg-light mb-3 text-center ">
-                <a href="/liste/nom=<?= $primaires->nom ?>" class="fs-9 d-block text-dark text-decoration-none">
-                    <?= $primaires->nom ?>
+            <a href="/liste/nom=<?= $primaires->nom ?>" class="fs-9 d-block text-dark text-decoration-none">
+                <?php foreach ($params['active'] as $annee) : ?>
+                    <?php if ($annee->annee_scolaire == $primaires->anee) : ?>
+                        <?= $primaires->nom ?>
+                    <?php endif; ?>
+            <?php endforeach; ?>
                 </a>
             </li>
         <?php endforeach; ?>

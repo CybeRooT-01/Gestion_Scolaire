@@ -52,6 +52,7 @@ $app->router->get('/discipline/ajout', 'App\Controllers\disciplineController@ajo
 $app->router->get('/discipline/getDatas', 'App\Controllers\disciplineController@getDatas');
 
 $app->router->post('/discipline/delete', 'App\Controllers\disciplineController@delete');
+$app->router->get('/discipline/delete', 'App\Controllers\disciplineController@delete');
 
-
+$app->router->post('/js/test', 'App\Controllers\disciplineController@test');
 $app->run();

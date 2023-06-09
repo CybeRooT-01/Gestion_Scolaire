@@ -9,7 +9,7 @@ class CycleModel extends model
         $this->table = 'classe';
     }
     public function getClasseByCycle(string $cycle){
-        $sql = "SELECT classe.nom
+        $sql = "SELECT classe.nom, classe.anee
         FROM $this->table
         JOIN typecycle ON classe.idTypeCycle = typecycle.id where typecycle.nom LIKE '$cycle'";
         return $this->myQuerry($sql);

@@ -13,10 +13,11 @@ class EleveModel extends model
     protected $dateNaissance;
     protected $lieuNaissance;
     protected $sexe;
+    protected $annee;
 
     public function __construct()
     {
-        $this->table = 'eleves';
+        $this->table = 'inscription';
     }
 
     // public function EleveComplet()
@@ -186,6 +187,24 @@ class EleveModel extends model
     public function setId($id): self
     {
         $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of annee
+     */
+    public function getAnnee()
+    {
+        return $this->annee;
+    }
+
+    /**
+     * Set the value of annee
+     */
+    public function setAnnee($annee): self
+    {
+        $this->annee = $annee;
 
         return $this;
     }

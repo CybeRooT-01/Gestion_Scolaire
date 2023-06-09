@@ -34,7 +34,6 @@ class disciplineController extends Controller
     public function delete(){
         $datas = json_decode(file_get_contents('php://input'));
         $this->model->delete($datas);
-        $this->json(['status' => 'success']);
+        $this->json(['status' => 'success', 'datas' => $datas]);
     }
-    
 }

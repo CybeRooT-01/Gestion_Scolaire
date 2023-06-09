@@ -16,14 +16,10 @@ class disciplineModel extends Model
         return $this->myQuerry($sql)->fetchAll();
     }
     public function delete($datas){
-        $sql = "DELETE FROM $this->table WHERE classe_id = (SELECT id FROM classe WHERE nom = '$datas->nom') AND groupe_discipline = '$datas->groupe_discipline' AND discipline IN (";
-        foreach($datas->disciplines as $discipline){
-            $sql .= "'$discipline',";
-        }
-        $sql = substr($sql, 0, -1);
-        $sql .= ")";
+        $sql = "DELETE FROM $this->table WHERE classe_id = (SELECT id FROM classe WHERE nom = '$datas->nom')AND discipline IN ('" . implode("','", $datas->disciplines) . "')";
         $this->myQuerry($sql);
     }
     
+
     
 }

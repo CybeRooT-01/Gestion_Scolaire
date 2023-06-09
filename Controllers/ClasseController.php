@@ -65,7 +65,6 @@ class ClasseController extends Controller
             header('Content-Type: application/json');
             echo $jsonData;
             exit();
-
     }
     /*
               [

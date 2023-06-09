@@ -16,6 +16,7 @@ class EleveController extends Controller
                 if (isset($_POST['inscrire'])) {
                     extract($_POST);
                     $classeEleve = $_POST['classeEleve'];
+                    $anneeEleve = $_POST['annee'];
                         $data = [
                             'nom' => $nomEleve,
                             'prenom' => $prenomEleve,
@@ -25,6 +26,7 @@ class EleveController extends Controller
                             'sexe' => $sexEleve,
                             'niveau' => $niveauEleve,
                             'classe' => $classeEleve,
+                            'annee' => $anneeEleve,
                         ];
                         $eleveModel->hydrate($data);
                         $eleveModel->create($eleveModel);

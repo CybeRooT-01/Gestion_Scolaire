@@ -62,7 +62,7 @@ class AnneeController extends Controller
             $nouveauStatut = ($_POST['active'] == 'active') ? 'inactive' : 'active';
             $this->anneeModel->mettreLesAutreInactive();
             $this->anneeModel->updateStatut($id, $nouveauStatut);
-            $this->redirect(self::ANNEE);
+            $this->redirect('/niveau');
         }
     }
 }

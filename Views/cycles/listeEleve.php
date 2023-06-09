@@ -13,12 +13,17 @@
         </div>
     </div>
     <ul class="list-group">
+    <?php foreach ($params['active'] as $annee) : ?>
         <?php foreach ($params['eleve'] as $primaires) : ?>
             <li class="list-group-item bg-light mb-3 text-center ">
-                <a href="#" class="fs-9 d-block text-dark text-decoration-none">
-                    <?= $primaires->nom ?> <?= $primaires->prenom ?>
-                </a>
+                <?php if ($annee->annee_scolaire == $primaires->annee) : ?>
+                    <a href="#" class="fs-9 d-block text-dark text-decoration-none">
+                    <?= $primaires->prenom?>
+                    <?= $primaires->nom?>
+                    </a>
+                <?php endif; ?>
             </li>
+            <?php endforeach; ?>
         <?php endforeach; ?>
     </ul>
 </div>

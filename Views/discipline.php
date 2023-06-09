@@ -1,4 +1,3 @@
-<!-- classes -->
 <div class="container">
   <h1 class="text-center">Gestion des disciplines</h1>
   <hr>
@@ -21,7 +20,8 @@
   <div class="row">
     <div class="col-md-6">
       <label for="groupeSelect">Groupe de discipline :</label>
-      <select class="form-control" id="groupeSelect" onchange="chargerDiscipline()">
+      <select class="form-control modalController" id="groupeSelect" onchange="chargerDiscipline()">
+      <option value="ajout">Ajouter une discipline</option>
       </select>
     </div>
     <div class="col-md-6">
@@ -52,6 +52,8 @@
   const nomClasse = document.querySelector('#nomClasse');
   const listeDesDiscipline = document.querySelector('.listeDesDiscipline');
   const updatebtn = document.querySelector('.updatebtn');
+  const modal = document.querySelector('.modal');
+  // const modalController = document.querySelector('.modalController');
 
   function chargerClasses() {
     let niveau = listeNiveau.value;
@@ -71,15 +73,17 @@
         };
         listeDesDiscipline.innerHTML = '';
         tableauClasses[niveau]?.forEach(classe => {
-          nomClasse.innerHTML = classe.nom;
           listeClasse.innerHTML += `<option value="${classe.nom}">${classe.nom}</option>`;
-
+          nomClasse.innerHTML = listeClasse.value;
         });
       })
       .catch(error => {
         console.error('Erreur lors de la récupération des données :', error.message);
       });
   }
+  listeClasse.addEventListener('change', ()=>{
+    nomClasse.innerHTML = listeClasse.value;
+  });
 
   function chargerGroupeDiscipline() {
     let classe = listeClasse.value;
@@ -96,7 +100,6 @@
       .then(data => {
         listeGroupe.innerHTML = '';
         listeDiscipline.innerHTML = '';
-        console.log(data);
         data.forEach(discipline => {
           if (discipline.nom == classe) {
             if (!groupesDeDisciplineDejaAjoutes.includes(discipline.groupe_discipline)) {
@@ -125,7 +128,6 @@
       .then(data => {
         listeDiscipline.innerHTML = '';
         listeDesDiscipline.innerHTML = '';
-
         let anyUnchecked = false;
 
         data.forEach(discipline => {
@@ -192,7 +194,6 @@
     unchecked.forEach(checkbox => {
       data.disciplines.push(checkbox.value)
     });
-    // console.log(data);
     fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -207,7 +208,6 @@
         return response.json()
       })
       .then(data => {
-        console.log(data)
         if (data.status == 'success') {
           showBootstrapAlert('Discipline supprimée avec succès', 'alert-success')
           chargerDiscipline()
@@ -219,6 +219,7 @@
         console.error('Erreur lors de la récupération des données :', error.message)
       });
   }
+
   function showBootstrapAlert(message, alertClass) {
   const alertDiv = document.createElement('div');
   alertDiv.className = `alert ${alertClass} position-fixed top-0 start-0 m-3`;
