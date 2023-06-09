@@ -13,8 +13,8 @@
     </div>
 </div>
     <ul class="list-group">
-        <?php foreach ($params['cycle'] as $primaires) : ?>
             <li class="list-group-item bg-light mb-3 text-center ">
+        <?php foreach ($params['cycle'] as $primaires) : ?>
             <a href="/liste/nom=<?= $primaires->nom ?>" class="fs-9 d-block text-dark text-decoration-none">
                 <?php foreach ($params['active'] as $annee) : ?>
                     <?php if ($annee->annee_scolaire == $primaires->anee) : ?>
@@ -22,8 +22,9 @@
                     <?php endif; ?>
             <?php endforeach; ?>
                 </a>
-            </li>
         <?php endforeach; ?>
+
+            </li>
     </ul>
 </div>
 </body>
