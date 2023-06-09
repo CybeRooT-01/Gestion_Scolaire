@@ -7,10 +7,12 @@ class AnneeModel extends model
     protected $id;
     protected $annee_scolaire;
     protected $status;
-
     public function __construct()
     {
         $this->table = 'annee';
+    }
+    public function getAllYear(){
+        return $this->myQuerry('SELECT * FROM ' . $this->table)->fetchAll();
     }
     public function getActiveYear()
     {
@@ -78,4 +80,5 @@ class AnneeModel extends model
 
         return $this;
     }
+
 }

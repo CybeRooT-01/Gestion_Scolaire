@@ -1,5 +1,11 @@
 <div class="container">
-    <h1>Liste des classes primaires</h1>
+    <?php if ($params['cycle'] == 'elementaire') : ?>
+        <h1>Liste des classes primaires</h1>
+    <?php elseif ($params['cycle'] == 'secondaireInferieur') : ?>
+        <h1>Liste des classes Secondaire Inférieur</h1>
+    <?php elseif ($params['cycle'] == 'secondaireSuperieur') : ?>
+        <h1>Liste des classes Secondaire Supérieur</h1>
+    <?php endif; ?>
     <div class="container">
         <div class="row">
             <div class="col-md-9">
@@ -13,20 +19,16 @@
         </div>
     </div>
     <ul class="list-group">
-        <?php foreach ($params['cycle'] as $primaires) : ?>
+        <?php foreach ($params['classes'] as $classe) : ?>
             <?php foreach ($params['active'] as $annee) : ?>
-                <?php if ($annee->annee_scolaire == $primaires->anee) : ?>
-                    <li class="list-group-item bg-light mb-3 text-center ">
-                        <a href="/liste/nom=<?= $primaires->nom ?>" class="fs-9 d-block text-dark text-decoration-none">
-                            <?= $primaires->nom ?>
+                <?php if ($annee->annee_scolaire == $classe->anee) : ?>
+                    <li class="list-group-item bg-light mb-3 text-center">
+                        <a href="/classe/liste/<?= $classe->id ?>" class="fs-9 d-block text-dark text-decoration-none">
+                            <?= $classe->nom ?>
                         </a>
                     </li>
                 <?php endif; ?>
-
             <?php endforeach; ?>
         <?php endforeach; ?>
     </ul>
 </div>
-</body>
-
-</html>

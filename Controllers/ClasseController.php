@@ -3,27 +3,30 @@
 namespace App\Controllers;
 
 use App\models\ClasseModel;
-
+use App\models\AnneeModel;
 class ClasseController extends Controller
 {
     public function index()
     {
         if ((isset($_SESSION['user']))) {
             $classeModel = new ClasseModel();
+            $anneeModel = new AnneeModel();
+            $annes = $anneeModel->getAllYear();
             $classes = $classeModel->classeComplet();
             $typeCycle = $classeModel->selectType()->fetchAll();
-            $this->render('classe/classes.php', ['classes' => $classes, 'typeCycle' => $typeCycle]);
+            $this->render('classe/classes.php', ['classes' => $classes, 'typeCycle' => $typeCycle, 'annes' => $annes]);
             if (!empty($_POST['nom']) && !empty($_POST['niveau']) && !empty($_POST['typeCycle'])) {
                 $classeModel->setNom($_POST['nom']);
                 $classeModel->setNiveau($_POST['niveau']);
                 $classeModel->setIdTypeCyble($_POST['typeCycle']);
+                $classeModel->setAnee($_POST['annee']);
                 $classeModel->addClasse();
-                $this->redirect('/classe');
+                $this->redirect('/niveau');
             }
 
             if (!empty($_POST['idClasse'])) {
                 $classeModel->delete((int)$_POST['idClasse']);
-                $this->redirect('/classe');
+                $this->redirect('/niveau');
             }
 
             if (!empty($_POST['modify'])) {

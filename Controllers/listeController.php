@@ -17,10 +17,10 @@ class listeController extends Controller
     {
         if(isset($_SESSION['user'])){
             $nom = $_SERVER['REQUEST_URI'];
-            $classes = explode('=', $nom);
-            $classe =  $classes[1];
+            $nom = explode('/', $nom);
+            $idclasse =(int)$nom[3];
             $model = new listeModel();
-            $eleves = $model->getEleveByClasse($classe)->fetchAll();
+            $eleves = $model->getEleveByIdClasse($idclasse);
             $this->render('cycles/listeEleve.php', ['eleve' => $eleves, 'active' => $this->active]);
         }else{
             $this->redirect('/connexion');

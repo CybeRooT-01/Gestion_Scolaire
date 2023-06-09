@@ -8,14 +8,14 @@ class ClasseModel extends model
     protected $nom;
     protected $niveau;
     protected $idTypeCyble;
-
+    protected $anee;
     public function __construct()
     {
         $this->table = 'classe';
     }
     public function addClasse(){
-        $sql = "INSERT INTO classe (nom, niveau, idTypeCycle) VALUES (?, ?, ?)";
-        return $this->myQuerry($sql, [$this->nom, $this->niveau, $this->idTypeCyble]);
+        $sql = "INSERT INTO classe (nom, niveau, idTypeCycle,anee) VALUES (?, ?, ?, ?)";
+        return $this->myQuerry($sql, [$this->nom, $this->niveau, $this->idTypeCyble, $this->anee]);
     }
 
     public function classeComplet(){
@@ -93,6 +93,24 @@ class ClasseModel extends model
     public function setIdTypeCyble($idTypeCyble): self
     {
         $this->idTypeCyble = $idTypeCyble;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of anee
+     */
+    public function getAnee()
+    {
+        return $this->anee;
+    }
+
+    /**
+     * Set the value of anee
+     */
+    public function setAnee($anee): self
+    {
+        $this->anee = $anee;
 
         return $this;
     }

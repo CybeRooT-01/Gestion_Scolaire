@@ -16,16 +16,12 @@
     <header style="position: absolute; top:0; right:0">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <?php if(isset($_SESSION['user']) && !empty($_SESSION['user']['id'])): ?>
-            <a class="navbar-brand" href="/main">Accueil</a>
+            <a class="navbar-brand" href="/niveau">Accueil</a>
             <a class="navbar-brand" href="/logout">Deconnexion</a>
-            <?php else: ?>
-                <a class="navbar-brand" href="/connexion">Connexion</a>
             <?php endif; ?>
-
         </nav>
     </header>
     <!-- <?= $content ?> -->
-    
 </body>
 <?php if (isset($params['scripts'])) : ?>
         <script src="<?= $params['scripts']  ?>"></script>

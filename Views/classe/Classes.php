@@ -14,6 +14,7 @@
             <th>Nom</th>
             <th>Niveau</th>
             <th>Type de cycle</th>
+            <th>Année scolaire</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -23,6 +24,7 @@
               <td><?= $classe->nom ?></td>
               <td><?= $classe->niveau ?></td>
               <td><?= $classe->nom_typecycle ?></td>
+              <td><?= $classe->anee?></td>
               <td>
                 <div class="d-flex justify-content-start">
                   <button class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editModal<?= $classe->id ?>" name="<?= $classe->type_cycle ?>">Modifier</button>
@@ -160,6 +162,15 @@
                 <?php endforeach; ?>
               </select>
             </div>
+          </div>
+          <div class="form-group">
+            <label for="nom">annee :</label>
+            <select class="custom-select" id="inputGroupSelect01" name="annee">
+              <option selected>Choisir une année</option>
+              <?php foreach ($params['annes'] as  $annee) : ?>
+                <option value="<?= $annee-> annee_scolaire ?>"><?= $annee-> annee_scolaire ?></option>
+                <?php endforeach; ?>
+              </select>
           </div>
       </div>
       <div class="modal-footer">

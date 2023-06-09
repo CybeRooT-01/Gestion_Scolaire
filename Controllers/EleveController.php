@@ -30,7 +30,7 @@ class EleveController extends Controller
                         ];
                         $eleveModel->hydrate($data);
                         $eleveModel->create($eleveModel);
-                        $this->redirect('/eleve');
+                        $this->redirect('/niveau');
                 }
                 if (isset($_POST['supprimer'])){
                     $id = (int)$_POST['eleve_id'];

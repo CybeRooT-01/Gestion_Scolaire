@@ -7,8 +7,9 @@ class listeModel extends model
     {
         $this->table = 'classe';
     }
-    public function getEleveByClasse($classe){
-        $sql = "SELECT * FROM inscription WHERE classe = ?";
-        return $this->myQuerry($sql, [$classe]);
+    public function getEleveByIdClasse($id)
+    {
+        $sql = "SELECT inscription.* , classe.id AS Classe_ID FROM inscription JOIN classe ON inscription.classe = classe.nom WHERE classe.id = $id";
+        return $this->myQuerry($sql);
     }
 }

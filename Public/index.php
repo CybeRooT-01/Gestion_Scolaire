@@ -38,7 +38,7 @@ $app->router->get('/niveau/elementaire', 'App\Controllers\CycleController@elemen
 $app->router->get('/niveau/moyen', 'App\Controllers\CycleController@secondaireInferieur');
 $app->router->get('/niveau/secondaire', 'App\Controllers\CycleController@secondaireSuperieur');
 
-$app->router->get('/liste/:nom' ,'App\Controllers\listeController@index');
+$app->router->get('/classe/liste/:nom' ,'App\Controllers\listeController@index');
 $app->router->get('/inscription', 'App\Controllers\ConnexionController@inscription');
 $app->router->post('/inscription', 'App\Controllers\ConnexionController@inscription');
 $app->router->get('/logout', 'App\Controllers\ConnexionController@logout');

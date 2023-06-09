@@ -9,6 +9,7 @@ class CycleController extends Controller{
     protected $model;
     protected $annee;
     protected $active;
+    const VIEWS = 'cycles/cycles.php';
     public function __construct()
     {
         $this->model = new CycleModel();
@@ -18,14 +19,17 @@ class CycleController extends Controller{
 
     public function elementaire(){
         $allPrimaires = $this->model->getClasseByCycle('Enseignement primaire')->fetchAll();
-        $this->render('cycles/elementaire.php', ['cycle' => $allPrimaires, 'active' => $this->active]);
+        $this->render(self::VIEWS, ['cycle' => 'elementaire', 'classes' => $allPrimaires, 'active' => $this->active]);
     }
+    
     public function secondaireInferieur(){
-        $allSecondaires = $this->model->getClasseByCycle('Enseignement secondaire inférieur');
-        $this->render('cycles/secondaireInferieur.php', ['cycle' => $allSecondaires, 'active' => $this->active]);
+        $allSecondaires = $this->model->getClasseByCycle('Enseignement secondaire inférieur')->fetchAll();
+        $this->render(self::VIEWS, ['cycle' => 'secondaireInferieur', 'classes' => $allSecondaires, 'active' => $this->active]);
     }
+    
     public function secondaireSuperieur(){
-        $allLycees = $this->model->getClasseByCycle('Enseignement secondaire supérieur');
-        $this->render('cycles/secondaireSuperieur.php', ['cycle' => $allLycees, 'active' => $this->active]);
+        $allLycees = $this->model->getClasseByCycle('Enseignement secondaire supérieur')->fetchAll();
+        $this->render(self::VIEWS, ['cycle' => 'secondaireSuperieur', 'classes' => $allLycees, 'active' => $this->active]);
     }
+    
 }
