@@ -1,4 +1,32 @@
-<div class="container">
+<!-- Modal -->
+<div class="modal fade modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Ajout de disciplines</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="GroupDiscipline">Groupe de Discipline:</label>
+          <input type="text" class="form-control" id="GroupDiscipline" placeholder="Nom du groupe" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="CodeGroup">Code du groupe</label>
+          <input type="text" class="form-control" id="CodeGroup" placeholder="Code du groupe" autocomplete="off">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary continuer">Continuer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal -->
+<div class="container mt-4">
   <h1 class="text-center">Gestion des disciplines</h1>
   <hr>
   <div class="row">
@@ -21,13 +49,13 @@
     <div class="col-md-6">
       <label for="groupeSelect">Groupe de discipline :</label>
       <select class="form-control modalController" id="groupeSelect" onchange="chargerDiscipline()">
-      <option value="ajout">Ajouter une discipline</option>
       </select>
     </div>
     <div class="col-md-6">
       <label for="disciplineSelect">Discipline :</label>
-      <select class="form-control" id="disciplineSelect">
-      </select>
+      <div class="div d-flex">
+        <input type="text" class="form-control" id="disciplineSelect" placeholder="Ajouter une discipline" autocomplete="off"><button class="btn btn-primary ml-1 addBtn" onclick="AjouterDiscipline()">OK</button>
+      </div>
     </div>
   </div>
 </div>
@@ -53,7 +81,16 @@
   const listeDesDiscipline = document.querySelector('.listeDesDiscipline');
   const updatebtn = document.querySelector('.updatebtn');
   const modal = document.querySelector('.modal');
-  // const modalController = document.querySelector('.modalController');
+  const groupeDisciplineInput = document.querySelector('#GroupDiscipline');
+  const codeGroupInput = document.querySelector('#CodeGroup');
+  const continuer = document.querySelector('.continuer');
+  const nouveauDiscipline = document.querySelector('#nouveauDiscipline');
+  const addBtn = document.querySelector('.addBtn');
+
+  continuer.addEventListener('click', () => {
+    $('#myModal').modal('hide');
+  });
+
 
   function chargerClasses() {
     let niveau = listeNiveau.value;
@@ -81,38 +118,44 @@
         console.error('Erreur lors de la récupération des données :', error.message);
       });
   }
-  listeClasse.addEventListener('change', ()=>{
+  listeClasse.addEventListener('change', () => {
     nomClasse.innerHTML = listeClasse.value;
   });
 
   function chargerGroupeDiscipline() {
-    let classe = listeClasse.value;
-    let url = 'http://localhost:10000/discipline/getDatas';
-    let groupesDeDisciplineDejaAjoutes = [];
+  let classe = listeClasse.value;
+  let url = 'http://localhost:10000/discipline/getDatas';
+  let groupesDeDisciplineDejaAjoutes = [];
 
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Erreur lors de la récupération des données : ' + response.status);
-        }
-        return response.json();
-      })
-      .then(data => {
-        listeGroupe.innerHTML = '';
-        listeDiscipline.innerHTML = '';
-        data.forEach(discipline => {
-          if (discipline.nom == classe) {
-            if (!groupesDeDisciplineDejaAjoutes.includes(discipline.groupe_discipline)) {
-              listeGroupe.innerHTML += `<option value="${discipline.groupe_discipline}">${discipline.groupe_discipline}</option>`;
-              groupesDeDisciplineDejaAjoutes.push(discipline.groupe_discipline);
-            }
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erreur lors de la récupération des données : ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      listeGroupe.innerHTML = '<option value="nouveau" id="nouveauDiscipline">Nouveau</option>';
+      listeDiscipline.innerHTML = '';
+      data.forEach(discipline => {
+        if (discipline.nom == classe) {
+          if (!groupesDeDisciplineDejaAjoutes.includes(discipline.groupe_discipline)) {
+            listeGroupe.innerHTML += `<option value="${discipline.groupe_discipline}">${discipline.groupe_discipline}</option>`;
+            groupesDeDisciplineDejaAjoutes.push(discipline.groupe_discipline);
           }
-        });
-      })
-      .catch(error => {
-        console.error('Erreur lors de la récupération des données :', error.message);
+        }
       });
-  }
+
+      // Vérifier si la liste contient uniquement l'option "Nouveau"
+      if (listeGroupe.length === 1 && listeGroupe.value === 'nouveau') {
+        $('#myModal').modal('show');
+      }
+    })
+    .catch(error => {
+      console.error('Erreur lors de la récupération des données :', error.message);
+    });
+}
+
 
   function chargerDiscipline() {
     let classe = listeClasse.value;
@@ -129,14 +172,6 @@
         listeDiscipline.innerHTML = '';
         listeDesDiscipline.innerHTML = '';
         let anyUnchecked = false;
-
-        data.forEach(discipline => {
-          if (discipline.nom == classe && discipline.groupe_discipline == groupe) {
-            const isChecked = true; // Toutes les disciplines sont cochées par défaut
-            listeDiscipline.innerHTML += `<option value="${discipline.discipline}" ${isChecked ? 'selected' : ''}>${discipline.discipline}</option>`;
-          }
-        });
-
         data.forEach(discipline => {
           if (discipline.nom == classe) {
             const isChecked = true;
@@ -160,7 +195,6 @@
             } else {
               label.classList.add('text-danger');
             }
-
             const checked = document.querySelectorAll('.discipline:checked');
             if (checked.length < checkboxes.length) {
               updatebtn.disabled = false;
@@ -174,6 +208,11 @@
           updatebtn.disabled = false;
         } else {
           updatebtn.disabled = true;
+        }
+        if (groupeSelect.value === "nouveau") {
+          $('#myModal').modal('show');
+        } else {
+          $('#myModal').modal('hide');
         }
       })
       .catch(error => {
@@ -210,6 +249,7 @@
       .then(data => {
         if (data.status == 'success') {
           showBootstrapAlert('Discipline supprimée avec succès', 'alert-success')
+          groupeSelect.value = "";
           chargerDiscipline()
         } else {
           alert('Erreur lors de la suppression de la discipline')
@@ -220,14 +260,56 @@
       });
   }
 
-  function showBootstrapAlert(message, alertClass) {
-  const alertDiv = document.createElement('div');
-  alertDiv.className = `alert ${alertClass} position-fixed top-0 start-0 m-3`;
-  alertDiv.innerHTML = message;
-  document.body.appendChild(alertDiv);
-  setTimeout(() => {
-    alertDiv.remove();
-  }, 5000);
-}
+  function AjouterDiscipline() {
+    let classe = listeClasse.value;
+    let groupe = groupeDisciplineInput.value;
+    let code = codeGroupInput.value;
+    let discipline = listeDiscipline.value;
+    let url = 'http://localhost:10000/discipline/add';
+    let data = {
+      nom: classe,
+      groupe_discipline: groupe,
+      code: code,
+      discipline: discipline
+    };
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des données : ' + response.status);
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.status == 'success') {
+          showBootstrapAlert('Discipline ajoutée avec succès', 'alert-success');
+          groupeSelect.value = "";
+          chargerDiscipline();
+        } else {
+          if (data.message == 'duplicate') {
+            showBootstrapAlert('Discipline déjà existante', 'alert-danger');
+            return;
+          }
+          showBootstrapAlert('Erreur lors de l\'ajout de la discipline', 'alert-danger');
+        }
+      })
+      .catch(error => {
+        console.error('Erreur lors de la récupération des données :', error.message);
+      });
+  }
 
+  function showBootstrapAlert(message, alertClass) {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert ${alertClass} position-fixed top-0 start-0 m-3`;
+    alertDiv.innerHTML = message;
+    document.body.appendChild(alertDiv);
+    setTimeout(() => {
+      alertDiv.remove();
+    }, 5000);
+  }
 </script>
