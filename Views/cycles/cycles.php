@@ -14,7 +14,7 @@
                 <?php endforeach; ?>
             </div>
             <div class="col-md-3 d-flex justify-content-end align-items-center">
-                <a href="/classe"><i class="fa-solid fa-plus" style="color: #1a58bc;"></i></a>
+                <a href="/classe"><i class="fa-solid fa-plus mt-5" style="color: #1a58bc;"></i></a>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
             <?php foreach ($params['active'] as $annee) : ?>
                 <?php if ($annee->annee_scolaire == $classe->anee) : ?>
                     <li class="list-group-item bg-light mb-3 text-center">
-                        <a href="/classe/liste/<?= $classe->id ?>" class="fs-9 d-block text-dark text-decoration-none">
+                        <a href="/classe/coef/<?= $classe->id ?>" class="fs-9 d-block text-dark text-decoration-none">
                             <?= $classe->nom ?>
                         </a>
                     </li>

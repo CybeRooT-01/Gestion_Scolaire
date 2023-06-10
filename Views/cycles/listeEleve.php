@@ -8,7 +8,7 @@
                 <?php endforeach; ?>
             </div>
             <div class="col-md-3 d-flex justify-content-end align-items-center">
-                <a href="/eleve"><i class="fa-solid fa-plus" style="color: #1a58bc;"></i></a>
+                <a href="/eleve"><i class="fa-solid fa-plus mt-5" style="color: #1a58bc;"></i></a>
             </div>
         </div>
     </div>
