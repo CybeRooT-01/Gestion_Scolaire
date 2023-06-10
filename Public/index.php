@@ -56,4 +56,8 @@ $app->router->post('/discipline/delete', 'App\Controllers\disciplineController@d
 $app->router->post('/discipline/add', 'App\Controllers\disciplineController@add');
 
 $app->router->get('/classe/coef/:id', 'App\Controllers\coefController@index');
+
+$app->router->post('/coef/delete/', 'App\Controllers\coefController@delete');
+$app->router->get('/coef/delete/', 'App\Controllers\coefController@delete');
+
 $app->run();

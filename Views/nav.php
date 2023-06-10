@@ -21,7 +21,7 @@
   }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="main">Cyber School</a>
+  <a class="navbar-brand" href="niveau">Cyber School</a>
   <?php foreach ($params['active'] as $annee) : ?>
     <a class="nav-link d-inline-block mb-2 bg-primary text-white" href="/annee">Année Scolaire: <?= $annee->annee_scolaire ?></a>
   <?php endforeach; ?>
