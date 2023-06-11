@@ -295,7 +295,7 @@
             showBootstrapAlert('Discipline déjà existante', 'alert-danger');
             return;
           }
-          showBootstrapAlert('Erreur lors de l\'ajout de la discipline', 'alert-danger');
+          showBootstrapAlert("Erreur lors de l'ajout de la discipline", 'alert-danger');
         }
       })
       .catch(error => {

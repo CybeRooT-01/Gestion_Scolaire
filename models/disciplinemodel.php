@@ -16,7 +16,9 @@ class disciplineModel extends Model
         @$disciplines = $datas->discipline;
         $sql = "INSERT INTO $this->table (discipline, classe_id, groupe_discipline, code)
                   VALUES ('$disciplines', (SELECT id FROM classe WHERE nom = '$nom'), '$groupe_discipline', '$code')";
+        $sql2 = "INSERT INTO coef (discipline_id) VALUE(LAST_INSERT_ID())";
         $this->myQuerry($sql);
+        $this->myQuerry($sql2);
     }
     private function escapeString($value)
     {
