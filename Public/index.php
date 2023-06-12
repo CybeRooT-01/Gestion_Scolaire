@@ -34,9 +34,9 @@ $app->router->post('/connexion', 'App\Controllers\ConnexionController@index');
 $app->router->get('/getTypesClasses', 'App\Controllers\ClasseController@getTypeCycle');
 
 // route vers liste des typesdecycle
-$app->router->get('/niveau/elementaire', 'App\Controllers\CycleController@elementaire');
-$app->router->get('/niveau/moyen', 'App\Controllers\CycleController@secondaireInferieur');
-$app->router->get('/niveau/secondaire', 'App\Controllers\CycleController@secondaireSuperieur');
+$app->router->get('/niveau/classe/1', 'App\Controllers\CycleController@elementaire');
+$app->router->get('/niveau/classe/2', 'App\Controllers\CycleController@secondaireInferieur');
+$app->router->get('/niveau/classe/3', 'App\Controllers\CycleController@secondaireSuperieur');
 
 $app->router->get('/classe/liste/:nom' ,'App\Controllers\listeController@index');
 $app->router->get('/inscription', 'App\Controllers\ConnexionController@inscription');

@@ -1,7 +1,9 @@
 <?php
+
 namespace App\Controllers;
 
 use App\models\AnneeModel;
+
 class MainController extends Controller
 {
     // public function index(){
@@ -9,8 +11,8 @@ class MainController extends Controller
     // }
     public function index()
     {
-        $annee=new AnneeModel();
+        $annee = new AnneeModel();
         $active = $annee->getActiveYear();
-     $this->render('main/index.php',  ['active'=> $active]);
+        $this->render('main/index.php',  ['active' => $active]);
     }
 }
