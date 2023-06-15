@@ -21,14 +21,14 @@ class listeModel extends model
     }
     public function getDisciplinesByClassName($className)
     {
-        $sql = "SELECT discipline FROM coef JOIN discipline ON coef.discipline_id = discipline.id JOIN classe ON coef.id_classe = classe.id WHERE classe.nom LIKE '$className'";
+        $sql = "SELECT discipline, discipline.id as discipline_id FROM coef JOIN discipline ON coef.discipline_id = discipline.id JOIN classe ON coef.id_classe = classe.id WHERE classe.nom LIKE '$className'";
         return $this->myQuerry($sql)->fetchAll();
     }
-    // public function getMaxNote()
-    // {
-    //     $sql = "SELECT * FROM discipline JOIN coef ON discipline.id = coef.discipline_id";
-    //     return $this->myQuerry($sql)->fetchAll();
-    // }
+    public function getMaxNote()
+    {
+        $sql = "SELECT discipline.discipline, coef.Examen, coef.ressource, coef.discipline_id FROM discipline JOIN coef ON discipline.id = coef.discipline_id";
+        return $this->myQuerry($sql)->fetchAll();
+    }
 
     public function updateNote($disciplineID, $semestreID, $elevesID, $noteExam, $noteRessource)
     {

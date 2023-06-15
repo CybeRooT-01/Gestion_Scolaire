@@ -21,7 +21,7 @@
                 <select class="form-select discipline" id="selectLabel" style="height: 30px; width:150px; border:2px solid black; border-radius:10px" onchange="chargerNoteMax()">
                     <option value="">Choisir</option>
                     <?php foreach ($params['disciplines'] as $discipline) : ?>
-                        <option value="<?= $discipline->id_discipline ?>"><?= $discipline->discipline ?></option>
+                        <option value="<?= $discipline->discipline_id ?>"><?= $discipline->discipline ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -55,7 +55,7 @@
                                 <input type="number" class="form-control noteRessource" placeholder="note" style="width: 90px; height: 40px; position: absolute; visibility:hidden; top:5px">
                                 <input type="number" class="form-control noteExame" placeholder="note" style="width: 90px; height: 40px; position: absolute; visibility:hidden; top:5px">
                             </div>
-                            <div class="mt-2" style="display:flex; justify-content:center; align-items: end; font-size:28px; position: relative; left:105px; top:-8px">/ <span class="max">...</span></div>
+                            <div class="mt-2" style="display:flex; justify-content:center; align-items: end; font-size:28px; position: relative; left:105px; top:-8px">/ <span class="max"></span></div>
                         </div>
                     </div>
                 <?php endif; ?>
@@ -77,6 +77,7 @@
     const ressourceNote = document.querySelectorAll('.noteRessource');
 
     function chargerNoteMax() {
+        console.log(disciplineInput.value)
         url = "http://localhost:10000/liste/maxNote";
         fetch(url)
             .then(response => response.json())
@@ -94,10 +95,10 @@
                                     examNote.forEach(examInput => {
                                         examInput.style.visibility = 'hidden';
                                     });
-                                    // console.log("ressource" + ressourceInput.value);
                                 });
                                 maxContent.forEach(element => {
                                     element.textContent = data.ressource;
+                                    console.log(data.ressource);
                                 });
                             } else if (noteDeInput.value === "2") {
                                 examNote.forEach(examInput => {
@@ -105,10 +106,9 @@
                                     ressourceNote.forEach(ressourceInput => {
                                         ressourceInput.style.visibility = 'hidden';
                                     });
-                                    // console.log("examen" + examInput.value);
                                 });
                                 maxContent.forEach(element => {
-                                    element.textContent = data.examen;
+                                    element.textContent = data.Examen;
                                 });
                             }
                         });
@@ -116,10 +116,6 @@
                 });
             });
     }
-
-// eleves.forEach(eleve => {
-//      console.log(eleve.parentElement.parentElement.children[1].children[0].children[0])
-// })
 examNote.forEach(examInput => {
     examInput.addEventListener('input', () => {
         if (examInput.value !== "") {

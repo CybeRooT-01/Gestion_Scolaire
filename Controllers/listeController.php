@@ -31,6 +31,9 @@ class listeController extends Controller
             // var_dump($classe);
             $Semester = $Semester->findCurrentSemester($idclasse);
             $disciplines = $model->getDisciplinesByClassName($classe->nom);
+            // echo "<pre>";
+            // var_dump($disciplines);
+            // echo "</pre>";
             $activeSemesterName = $Semester->nom;
             // $activeSemesterId = $Semester->id;
             $this->render('cycles/listeEleve.php', [
@@ -48,10 +51,10 @@ class listeController extends Controller
             $this->redirect('/connexion');
         }
     }
-    // public function maxNote(){
-    //     $datas = $this->listeModel->getMaxNote();
-    //     $this->json($datas);
-    // }
+    public function maxNote(){
+        $datas = $this->listeModel->getMaxNote();
+        $this->json($datas);
+    }
     public function ajout(){
         $datas = json_decode(file_get_contents('php://input'));
         // $disciplineID =  $datas->idDiscipline;
