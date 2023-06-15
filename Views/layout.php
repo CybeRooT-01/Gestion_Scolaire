@@ -11,6 +11,11 @@
         <link rel="stylesheet" href="<?= $params['styles']  ?>">
     <?php endif ?>
     <title></title>
+    <style>
+        body{
+            overflow-x: hidden;
+        }
+    </style>
 </head>
 <body>
     <header style="position: absolute; top:0; right:0">

@@ -40,6 +40,7 @@ class AnneeController extends Controller
                 $this->anneeModel->setAnneeScolaire($annee);
                 $this->anneeModel->create($this->anneeModel);
                 $this->redirect(self::ANNEE);
+
             } else {
                 $errorMessage = 'Veuillez entrer une année valide';
             }

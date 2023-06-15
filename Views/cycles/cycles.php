@@ -23,7 +23,7 @@
             <?php foreach ($params['active'] as $annee) : ?>
                 <?php if ($annee->annee_scolaire == $classe->anee) : ?>
                     <li class="list-group-item bg-light mb-3 text-center">
-                        <a href="/classe/coef/<?= $classe->id ?>" class="fs-9 d-block text-dark text-decoration-none">
+                        <a href="/classe/liste/<?= $classe->id ?>" class="fs-9 d-block text-dark text-decoration-none">
                             <?= $classe->nom ?>
                         </a>
                     </li>

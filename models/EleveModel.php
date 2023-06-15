@@ -31,12 +31,26 @@ class EleveModel extends model
 
     /**
      * Get the value of lieuNaissance
+     * 'nom' => $nomEleve,
+                           
      */
+    public function createEleve($nomEleve, $prenomEleve, $dateNaissanceEleve, $lieuNaissanceEleve, $matriculeEleve, $sexEleve, $niveauEleve, $classeEleve, $anneeEleve) {
+        $sql = "INSERT INTO inscription(nom, prenom, niveau, matricule, lieuNaissance, dateNaissance, classe, sexe, annee) VALUES ('$nomEleve', '$prenomEleve', '$niveauEleve', '$matriculeEleve', '$lieuNaissanceEleve', '$dateNaissanceEleve', '$classeEleve', '$sexEleve', '$anneeEleve')";
+        $this->myQuerry($sql);
+        $eleveID = $this->db->lastInsertId();
+        $sql2 = "INSERT INTO note (eleve_id) VALUES ('$eleveID')";
+        $this->myQuerry($sql2);
+    }
+    
     public function getLieuNaissance()
     {
         return $this->lieuNaissance;
     }
-
+    public function deleteIdNoteEleve($id)
+    {
+        $sql = "DELETE FROM note WHERE eleve_id = $id";
+        $this->myQuerry($sql);
+    }
     /**
      * Set the value of lieuNaissance
      */

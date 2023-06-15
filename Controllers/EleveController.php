@@ -14,26 +14,23 @@ class EleveController extends Controller
             $typeCycle = $eleveModel->selectType()->fetchAll();
             $this->render('eleves/Eleves.php', ['eleves' => $eleves, 'typeCycle' => $typeCycle]);
                 if (isset($_POST['inscrire'])) {
-                    extract($_POST);
-                    $classeEleve = $_POST['classeEleve'];
-                    $anneeEleve = $_POST['annee'];
-                        $data = [
-                            'nom' => $nomEleve,
-                            'prenom' => $prenomEleve,
-                            'dateNaissance' => $dateNaissanceEleve,
-                            'lieuNaissance' => $LieuNaissanceEleve,
-                            'matricule' => $matriculeEleve,
-                            'sexe' => $sexEleve,
-                            'niveau' => $niveauEleve,
-                            'classe' => $classeEleve,
-                            'annee' => $anneeEleve,
-                        ];
-                        $eleveModel->hydrate($data);
-                        $eleveModel->create($eleveModel);
-                        $this->redirect('/niveau');
+                    $nom = $_POST['nomEleve'];
+                    $prenom = $_POST['prenomEleve'];
+                    $dateNaissance = $_POST['dateNaissanceEleve'];
+                    $lieuNaissance = $_POST['LieuNaissanceEleve'];
+                    $matricule = $_POST['matriculeEleve'];
+                    $sexe = $_POST['sexEleve'];
+                    $niveau = $_POST['niveauEleve'];
+                    $classe = $_POST['classeEleve'];
+                    $annee = $_POST['annee'];
+                    $eleveModel->createEleve($nom, $prenom, $dateNaissance, $lieuNaissance, $matricule, $sexe, $niveau, $classe, $annee);
+
+
+                        $this->redirect('/eleve');
                 }
                 if (isset($_POST['supprimer'])){
                     $id = (int)$_POST['eleve_id'];
+                    $eleveModel->deleteIdNoteEleve($id);
                     $eleveModel->delete($id);
                     $this->redirect('/eleve');
                 }

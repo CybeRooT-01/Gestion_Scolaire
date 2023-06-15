@@ -41,14 +41,14 @@
     </div>
     <div class="col-md-6">
       <label for="classeSelect">Classe :</label>
-      <select class="form-control" id="classeSelect" onclick="chargerGroupeDiscipline()">
+      <select class="form-control" id="classeSelect" onchange="chargerDiscipline()">//<!--onclick=chargerGroupeDiscipline()-->
       </select>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6">
       <label for="groupeSelect">Groupe de discipline :</label>
-      <select class="form-control modalController" id="groupeSelect" onchange="chargerDiscipline()">
+      <select class="form-control modalController" id="groupeSelect">
       </select>
     </div>
     <div class="col-md-6">
@@ -74,8 +74,8 @@
 </div>
 <script>
   const listeNiveau = document.querySelector('#niveauSelect');
-  const listeClasse = document.querySelector('#classeSelect');
   const listeGroupe = document.querySelector('#groupeSelect');
+  const listeClasse = document.querySelector('#classeSelect');
   const listeDiscipline = document.querySelector('#disciplineSelect');
   const nomClasse = document.querySelector('#nomClasse');
   const listeDesDiscipline = document.querySelector('.listeDesDiscipline');
@@ -91,7 +91,6 @@
     $('#myModal').modal('hide');
   });
 
-
   function chargerClasses() {
     let niveau = listeNiveau.value;
     fetch('http://localhost:10000/getTypesClasses')
@@ -102,7 +101,7 @@
         return response.json();
       })
       .then(data => {
-        listeClasse.innerHTML = '';
+        listeClasse.innerHTML = '<option value="">Choisir une classe</option>';
         const tableauClasses = {
           "Enseignement Primaire": data.primaire,
           "Enseignement secondaire inferieur": data.college,
@@ -122,44 +121,16 @@
     nomClasse.innerHTML = listeClasse.value;
   });
 
-  function chargerGroupeDiscipline() {
-  let classe = listeClasse.value;
-  let url = 'http://localhost:10000/discipline/getDatas';
-  let groupesDeDisciplineDejaAjoutes = [];
-
-  fetch(url)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Erreur lors de la récupération des données : ' + response.status);
-      }
-      return response.json();
-    })
-    .then(data => {
-      listeGroupe.innerHTML = '<option value="nouveau" id="nouveauDiscipline">Nouveau</option>';
-      listeDiscipline.innerHTML = '';
-      data.forEach(discipline => {
-        if (discipline.nom == classe) {
-          if (!groupesDeDisciplineDejaAjoutes.includes(discipline.groupe_discipline)) {
-            listeGroupe.innerHTML += `<option value="${discipline.groupe_discipline}">${discipline.groupe_discipline}</option>`;
-            groupesDeDisciplineDejaAjoutes.push(discipline.groupe_discipline);
-          }
-        }
-      });
-
-      // Vérifier si la liste contient uniquement l'option "Nouveau"
-      if (listeGroupe.length === 1 && listeGroupe.value === 'nouveau') {
-        $('#myModal').modal('show');
-      }
-    })
-    .catch(error => {
-      console.error('Erreur lors de la récupération des données :', error.message);
-    });
-}
-
+  listeGroupe.addEventListener('change', () => {
+    if (listeGroupe.value === 'nouveau') {
+      $('#myModal').modal('show');
+    }
+  });
 
   function chargerDiscipline() {
     let classe = listeClasse.value;
     let groupe = listeGroupe.value;
+    let groupesDeDisciplineDejaAjoutes = [];
     let url = 'http://localhost:10000/discipline/getDatas';
     fetch(url)
       .then(response => {
@@ -171,10 +142,15 @@
       .then(data => {
         listeDiscipline.innerHTML = '';
         listeDesDiscipline.innerHTML = '';
+        listeGroupe.innerHTML = '<option value="nouveau" id="nouveauDiscipline">Nouveau</option>';
         let anyUnchecked = false;
         data.forEach(discipline => {
           if (discipline.nom == classe) {
             const isChecked = true;
+            if (!groupesDeDisciplineDejaAjoutes.includes(discipline.groupe_discipline)) {
+              listeGroupe.innerHTML += `<option value="${discipline.groupe_discipline}">${discipline.groupe_discipline}</option>`;
+              groupesDeDisciplineDejaAjoutes.push(discipline.groupe_discipline);
+            }
             listeDesDiscipline.innerHTML += `
           <div class="col-md-4 mb-3">
             <input type="checkbox" class="discipline" id="${discipline.discipline}" name="${discipline.discipline}" value="${discipline.discipline}" ${isChecked ? 'checked' : ''}/>
@@ -209,11 +185,6 @@
         } else {
           updatebtn.disabled = true;
         }
-        if (groupeSelect.value === "nouveau") {
-          $('#myModal').modal('show');
-        } else {
-          $('#myModal').modal('hide');
-        }
       })
       .catch(error => {
         console.error('Erreur lors de la récupération des données :', error.message);
@@ -224,18 +195,17 @@
     let classe = listeClasse.value
     let groupe = listeGroupe.value
     let url = 'http://localhost:10000/discipline/delete'
-    let data = {
-      nom: classe,
-      groupe_discipline: groupe,
+    let datas = {
       disciplines: []
-    };
+    }
     const unchecked = document.querySelectorAll('.discipline:not(:checked)')
     unchecked.forEach(checkbox => {
-      data.disciplines.push(checkbox.value)
+      datas.disciplines.push({ discipline: checkbox.value})
     });
+    console.log(datas)
     fetch(url, {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(datas),
         headers: {
           'Content-Type': 'application/json'
         },
@@ -247,6 +217,7 @@
         return response.json()
       })
       .then(data => {
+        console.log(data)
         if (data.status == 'success') {
           showBootstrapAlert('Discipline supprimée avec succès', 'alert-success')
           groupeSelect.value = "";
@@ -272,6 +243,7 @@
       code: code,
       discipline: discipline
     };
+    // console.log(data);
     fetch(url, {
         method: 'POST',
         body: JSON.stringify(data),
@@ -286,6 +258,7 @@
         return response.json();
       })
       .then(data => {
+        // console.log(data);
         if (data.status == 'success') {
           showBootstrapAlert('Discipline ajoutée avec succès', 'alert-success');
           groupeSelect.value = "";

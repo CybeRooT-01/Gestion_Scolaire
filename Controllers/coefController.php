@@ -21,18 +21,17 @@ class coefController extends Controller
         $coef = new CoefModel();
         $disciplines = $coef->getDisciplineByIdClasse($idclasse);
         $className = $coef->findClassNameByClassId($idclasse);
-        // echo '<pre>';
-        // var_dump($disciplines);
-        // echo '</pre>';
-        $this->render('coef.php', ['disciplines' => $disciplines, 'idclasse' => $idclasse, 'className' => $className]);
+        $this->render('coef.php', ['disciplines' => $disciplines, 
+        'idclasse' => $idclasse, 
+        'className' => $className]);
     }
-    public function delete()
-    {
-        $datas = json_decode(file_get_contents('php://input'));
-        $id = (int)$datas->id;
-        $this->model->delete($id);
-        $this->json(['status' => 'success', 'datas' => $datas]);
-    }
+    // public function delete()
+    // {
+    //     $datas = json_decode(file_get_contents('php://input'));
+    //     $id = (int)$datas->id;
+    //     $this->model->delete($id);
+    //     $this->json(['status' => 'success', 'datas' => $datas]);
+    // }
 
     public function update()
     {

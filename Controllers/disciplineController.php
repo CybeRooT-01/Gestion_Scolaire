@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Controllers;
+
 use App\Models\disciplinemodel;
 use PDO;
+
 class disciplineController extends Controller
 {
     protected $model;
@@ -18,16 +21,32 @@ class disciplineController extends Controller
     {
         $this->render('matieres.php');
     }
-    public function getDatas(){
+    public function getDatas()
+    {
         $datas = $this->model->findGroupeEtDiscipline();
         $this->json($datas);
     }
-    public function delete(){
+    public function delete()
+    {
         $datas = json_decode(file_get_contents('php://input'));
-        $this->model->delete($datas);
-        $this->json(['status' => 'success', 'datas' => $datas]);
+        if (!empty($datas) && isset($datas->disciplines)) {
+            if (is_array($datas->disciplines)) {
+                foreach ($datas->disciplines as $discipline) {
+                    $this->model->delete($discipline);
+                }
+                $this->json(['status' => 'success', 'message' => 'Tableau Disciplines supprimées avec succès', 'datas' =>$discipline]);
+            } else {
+                $this->model->deleteOnediscipline($datas->disciplines);
+                $this->json(['status' => 'success', 'message' => 'Discipline supprime avec succes', 'datas' => $datas]);
+            }
+        } else {
+            $this->json(['status' => 'error', 'message' => 'Aucune discipline supprimer']);
+        }
     }
-    public function add() {
+
+
+    public function add()
+    {
         $datas = json_decode(file_get_contents('php://input'));
         $allDisciplines = $this->model->findAll();
         foreach ($allDisciplines as $discipline) {
@@ -39,5 +58,4 @@ class disciplineController extends Controller
         $this->model->ajoute($datas);
         $this->json(['status' => 'success', 'datas' => $datas]);
     }
-
 }

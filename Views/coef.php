@@ -53,11 +53,11 @@
     const btnDelete = document.querySelectorAll('.btnDelete');
     btnDelete.forEach(btn => {
         btn.addEventListener('click', function() {
-            const id = this.previousElementSibling.value;
+            let disciplineName = this.parentElement.parentElement.children[0].innerText;
+            let url = 'http://localhost:10000/discipline/delete';
             let data = {
-                id: parseInt(id)
+                disciplines: disciplineName
             };
-            let url = 'http://localhost:10000/coef/delete/';
             fetch(url, {
                     method: 'POST',
                     body: JSON.stringify(data),
@@ -74,10 +74,8 @@
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-        })
+        });
     });
-
-
 
     function updateDiscipline() {
         const writtenInputs = document.querySelectorAll('input.ressource, input.examen');
@@ -153,6 +151,7 @@
                 console.error('Error:', error);
             });
     }
+
     function showBootstrapAlert(message, alertClass) {
         const alertDiv = document.createElement('div');
         alertDiv.className = `alert ${alertClass} position-fixed top-0 start-0 m-3`;

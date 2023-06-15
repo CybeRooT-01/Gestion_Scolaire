@@ -61,4 +61,15 @@ $app->router->post('/coef/delete/', 'App\Controllers\coefController@delete');
 
 $app->router->post('/coef/update/', 'App\Controllers\coefController@update');
 
+$app->router->get('/semestre', 'App\Controllers\semestreController@index');
+$app->router->post('/semestre/create', 'App\Controllers\semestreController@createSemester');
+
+
+$app->router->post('/liste/maxNote', 'App\Controllers\listeController@maxNote');
+$app->router->get('/liste/maxNote', 'App\Controllers\listeController@maxNote');
+
+$app->router->post('/liste/ajout', 'App\Controllers\listeController@ajout');
+$app->router->get('/liste/ajout', 'App\Controllers\listeController@ajout');
+
+
 $app->run();
